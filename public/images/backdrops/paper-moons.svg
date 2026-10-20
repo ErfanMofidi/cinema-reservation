@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-hidden="true">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#dce9ea"/>
+      <stop offset="0.55" stop-color="#f4e6cf"/>
+      <stop offset="1" stop-color="#e9b7a8"/>
+    </linearGradient>
+    <linearGradient id="hill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#5d7d74"/>
+      <stop offset="1" stop-color="#2f4c48"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#sky)"/>
+  <circle cx="1180" cy="250" r="150" fill="#fbf7ed" opacity="0.95"/>
+  <circle cx="1120" cy="215" r="140" fill="#f4e6cf"/>
+  <g fill="#fbf7ed" opacity="0.85">
+    <circle cx="220" cy="170" r="7"/><circle cx="380" cy="110" r="4"/><circle cx="160" cy="300" r="5"/>
+    <circle cx="620" cy="180" r="4"/><circle cx="1420" cy="140" r="6"/><circle cx="900" cy="120" r="4"/>
+  </g>
+  <path d="M0 620c220-130 400-100 580-20s380 60 560-30 300-60 460-10v340H0z" fill="url(#hill)"/>
+  <path d="M0 740c260-70 450-20 680 40s420 40 620-20 240-20 300-4v144H0z" fill="#243d3a"/>
+  <path d="M0 830c300-30 560-10 760 20s520 20 840-30v80H0z" fill="#1a302e"/>
+</svg>

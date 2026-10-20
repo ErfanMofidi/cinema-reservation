@@ -1,5 +1,9 @@
 <?php
 
+use App\Models\Auditorium;
+use App\Models\Movie;
+use App\Models\Screening;
+use App\Services\SeatLayoutGenerator;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -15,8 +19,10 @@ use Tests\TestCase;
 */
 
 pest()->extend(TestCase::class)
- // ->use(RefreshDatabase::class)
+    ->use(RefreshDatabase::class)
     ->in('Feature');
+
+pest()->extend(TestCase::class)->in('Unit');
 
 /*
 |--------------------------------------------------------------------------
@@ -44,7 +50,52 @@ expect()->extend('toBeOne', function () {
 |
 */
 
-function something()
+/**
+ * Create an auditorium with a deterministic rectangular seat layout.
+ */
+function makeAuditorium(int $rows = 3, int $seatsPerRow = 4, int $premiumRows = 1): Auditorium
 {
-    // ..
+    $auditorium = Auditorium::factory()->create(['capacity' => 0]);
+
+    app(SeatLayoutGenerator::class)->generate($auditorium, $rows, $seatsPerRow, $premiumRows);
+
+    return $auditorium->refresh();
+}
+
+/**
+ * Create a published film with a bookable screening two days from now.
+ *
+ * @param  array<string, mixed>  $attributes
+ */
+function makeScreening(?Auditorium $auditorium = null, ?Movie $movie = null, array $attributes = []): Screening
+{
+    $auditorium ??= makeAuditorium();
+    $movie ??= Movie::factory()->create();
+
+    $startsAt = $attributes['starts_at'] ?? now()->addDays(2)->setTime(18, 0);
+    $endsAt = $attributes['ends_at'] ?? $startsAt->copy()->addMinutes($movie->runtime_minutes);
+
+    return Screening::factory()->create([
+        'movie_id' => $movie->id,
+        'auditorium_id' => $auditorium->id,
+        'starts_at' => $startsAt,
+        'ends_at' => $endsAt,
+        'base_price' => 100_000,
+        ...$attributes,
+    ]);
+}
+
+/**
+ * Return the IDs of the requested seat labels (for example A1, B3).
+ *
+ * @param  list<string>  $labels
+ * @return list<int>
+ */
+function seatIdsFor(Screening $screening, array $labels): array
+{
+    $seats = $screening->auditorium->seats()
+        ->get()
+        ->filter(fn ($seat) => in_array($seat->label(), $labels, true));
+
+    return $seats->pluck('id')->values()->all();
 }

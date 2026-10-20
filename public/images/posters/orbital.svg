@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 900" role="img" aria-label="Orbital poster">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#050914"/>
+      <stop offset="0.55" stop-color="#0b1730"/>
+      <stop offset="1" stop-color="#1c2a45"/>
+    </linearGradient>
+    <radialGradient id="planet" cx="0.35" cy="0.3" r="0.8">
+      <stop offset="0" stop-color="#596f8f"/>
+      <stop offset="0.55" stop-color="#1a2842"/>
+      <stop offset="1" stop-color="#050a12"/>
+    </radialGradient>
+    <linearGradient id="horizon" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0a1220" stop-opacity="0"/>
+      <stop offset="1" stop-color="#020408"/>
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="8" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="600" height="900" fill="url(#sky)"/>
+  <g fill="#e8c178">
+    <circle cx="70" cy="150" r="1.4"/><circle cx="140" cy="92" r="1"/>
+    <circle cx="510" cy="130" r="1.6"/><circle cx="430" cy="65" r="1"/>
+    <circle cx="550" cy="250" r="1.1"/><circle cx="90" cy="300" r="1"/>
+    <circle cx="480" cy="360" r="1.2"/><circle cx="360" cy="110" r="0.9"/>
+  </g>
+  <ellipse cx="300" cy="400" rx="260" ry="70" fill="none" stroke="#d9b56f" stroke-opacity="0.25" stroke-width="1.2" transform="rotate(-14 300 400)"/>
+  <ellipse cx="300" cy="400" rx="215" ry="55" fill="none" stroke="#d9b56f" stroke-opacity="0.18" stroke-width="1" transform="rotate(-14 300 400)"/>
+  <circle cx="300" cy="400" r="168" fill="url(#planet)"/>
+  <path d="M145 365c38-52 92-84 155-84 66 0 122 35 158 88-42 27-94 42-152 42-64 0-121-18-161-46z" fill="#8ba6c9" opacity="0.13"/>
+  <path d="M190 480c34 25 72 38 112 38 46 0 89-17 124-46" fill="none" stroke="#e8c178" stroke-opacity="0.25" stroke-width="1.4"/>
+  <circle cx="445" cy="315" r="6" fill="#f4ead8" filter="url(#glow)"/>
+  <path d="M445 315l28-20" stroke="#f4ead8" stroke-opacity="0.5" stroke-width="1"/>
+  <rect y="640" width="600" height="260" fill="url(#horizon)"/>
+  <path d="M0 690l90-35 75 18 105-52 95 40 80-15 155 55v199H0z" fill="#04070d"/>
+  <g font-family="Arial, Helvetica, sans-serif" fill="#e8c178">
+    <text x="60" y="86" font-size="12" letter-spacing="5">LUMIÈRE PICTURES PRESENTS</text>
+    <text x="60" y="118" font-size="11" letter-spacing="2.5" fill="#9fb2ca">A FILM BY MARA VOSS</text>
+  </g>
+  <text x="56" y="716" font-family="Georgia, 'Times New Roman', serif" font-size="82" fill="#f4efe4" letter-spacing="4">ORBITAL</text>
+  <text x="60" y="754" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#c8d3e2" letter-spacing="2">GRAVITY IS THE ONLY THING HOLDING US TOGETHER</text>
+  <line x1="60" y1="790" x2="540" y2="790" stroke="#e8c178" stroke-opacity="0.35"/>
+  <g font-family="Arial, Helvetica, sans-serif" font-size="10" fill="#8fa1b8" letter-spacing="1.6">
+    <text x="60" y="818">SCI-FI · DRAMA</text>
+    <text x="60" y="840">138 MIN · PG-13</text>
+    <text x="540" y="840" text-anchor="end">2026</text>
+  </g>
+</svg>

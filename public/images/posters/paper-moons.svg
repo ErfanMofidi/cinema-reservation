@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 900" role="img" aria-label="Paper Moons poster">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#dce9ea"/>
+      <stop offset="0.55" stop-color="#f4e6cf"/>
+      <stop offset="1" stop-color="#e9b7a8"/>
+    </linearGradient>
+    <linearGradient id="hill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#5d7d74"/>
+      <stop offset="1" stop-color="#2f4c48"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="900" fill="url(#sky)"/>
+  <circle cx="430" cy="240" r="105" fill="#fbf7ed" opacity="0.95"/>
+  <circle cx="390" cy="215" r="98" fill="#f4e6cf"/>
+  <g fill="#fbf7ed" opacity="0.85">
+    <circle cx="110" cy="170" r="5"/><circle cx="180" cy="110" r="3"/><circle cx="90" cy="280" r="4"/>
+    <circle cx="260" cy="180" r="3"/><circle cx="520" cy="140" r="4"/>
+  </g>
+  <path d="M0 620c90-80 160-65 230-10s150 52 220-12 120-44 150-12v314H0z" fill="url(#hill)"/>
+  <path d="M0 720c110-44 190-20 270 18s180 30 330-28v190H0z" fill="#243d3a"/>
+  <g transform="translate(160 660)">
+    <path d="M0 32h150l-24 42H30z" fill="#f9f2e4"/>
+    <path d="M72 32V0l54 32z" fill="#e8b64c"/>
+  </g>
+  <path d="M60 790c90-12 160-34 230-58" fill="none" stroke="#f9f2e4" stroke-width="2" stroke-dasharray="4 8" opacity="0.7"/>
+  <g font-family="Arial, Helvetica, sans-serif">
+    <text x="48" y="86" font-size="12" letter-spacing="5" fill="#2f4c48">A LUMIÈRE FAMILY FILM</text>
+    <text x="48" y="118" font-size="11" letter-spacing="2.2" fill="#5d7d74">A JOURNEY BEYOND THE LAST HILL</text>
+  </g>
+  <text x="44" y="742" font-family="Georgia, 'Times New Roman', serif" font-size="66" fill="#203b38" letter-spacing="1">PAPER</text>
+  <text x="44" y="806" font-family="Georgia, 'Times New Roman', serif" font-size="66" fill="#203b38" letter-spacing="1">MOONS</text>
+  <text x="48" y="842" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#2f4c48" letter-spacing="2.2">A SMALL MAP. A VERY LARGE SKY.</text>
+  <text x="48" y="868" font-family="Arial, Helvetica, sans-serif" font-size="10" fill="#3d5c56" letter-spacing="1.4">ANIMATION · ADVENTURE · 98 MIN · PG</text>
+  <text x="552" y="868" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="10" fill="#3d5c56">2026</text>
+</svg>

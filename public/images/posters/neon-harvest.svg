@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 900" role="img" aria-label="Neon Harvest poster">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#04120f"/>
+      <stop offset="0.6" stop-color="#07241b"/>
+      <stop offset="1" stop-color="#020806"/>
+    </linearGradient>
+    <linearGradient id="sun" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ff5e8a"/>
+      <stop offset="1" stop-color="#f4a340"/>
+    </linearGradient>
+    <linearGradient id="grid" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#48e0a4" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#48e0a4" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="900" fill="url(#bg)"/>
+  <circle cx="300" cy="380" r="150" fill="url(#sun)" opacity="0.9"/>
+  <g stroke="#04120f" stroke-width="9" opacity="0.9">
+    <path d="M300 248v264M186 324h228M205 292h190M205 356h190"/>
+  </g>
+  <g stroke="url(#grid)" stroke-width="1.2" opacity="0.8">
+    <path d="M0 560h600M0 600h600M0 646h600M0 700h600M0 764h600M0 840h600"/>
+    <path d="M300 540L80 900M300 540L160 900M300 540L240 900M300 540L360 900M300 540L440 900M300 540L520 900"/>
+  </g>
+  <path d="M0 900V812l80-28 70 16 70-38 80 30 70-24 70 20 90-30 70 18v124z" fill="#020504"/>
+  <g font-family="Arial, Helvetica, sans-serif">
+    <text x="48" y="86" font-size="12" letter-spacing="5" fill="#48e0a4">LUMIÈRE SELECTS</text>
+    <text x="48" y="118" font-size="11" letter-spacing="2.2" fill="#8ecbb4">A NEON NOIR FROM THE YEAR 2087</text>
+  </g>
+  <text x="44" y="716" font-family="Georgia, 'Times New Roman', serif" font-size="72" fill="#f6efe2" letter-spacing="2">NEON</text>
+  <text x="44" y="784" font-family="Georgia, 'Times New Roman', serif" font-size="72" fill="#f6efe2" letter-spacing="2">HARVEST</text>
+  <text x="48" y="824" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#c2e8d8" letter-spacing="2.2">THE CITY GROWS WHAT IT CONSUMES</text>
+  <line x1="48" y1="844" x2="552" y2="844" stroke="#ff5e8a" stroke-opacity="0.5"/>
+  <text x="48" y="868" font-family="Arial, Helvetica, sans-serif" font-size="10" fill="#8ecbb4" letter-spacing="1.4">ACTION · SCI-FI · 126 MIN · R</text>
+  <text x="552" y="868" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="10" fill="#8ecbb4">2026</text>
+</svg>

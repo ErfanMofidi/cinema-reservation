@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-hidden="true">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#04120f"/>
+      <stop offset="0.55" stop-color="#07241b"/>
+      <stop offset="1" stop-color="#020806"/>
+    </linearGradient>
+    <linearGradient id="sun" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ff5e8a"/>
+      <stop offset="1" stop-color="#f4a340"/>
+    </linearGradient>
+    <linearGradient id="grid" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#48e0a4" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#48e0a4" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <circle cx="1080" cy="390" r="240" fill="url(#sun)" opacity="0.85"/>
+  <g stroke="#04120f" stroke-width="14" opacity="0.9">
+    <path d="M1080 174v420M900 294h360M930 240h300M930 350h300"/>
+  </g>
+  <g stroke="url(#grid)" stroke-width="1.6" opacity="0.7">
+    <path d="M0 560h1600M0 620h1600M0 690h1600M0 770h1600M0 860h1600"/>
+    <path d="M800 520L220 900M800 520L440 900M800 520L650 900M800 520L950 900M800 520L1160 900M800 520L1380 900"/>
+  </g>
+  <path d="M0 900V790l200-50 180 36 190-74 210 60 180-40 200 54 190-30 250 44v110z" fill="#020504"/>
+</svg>
