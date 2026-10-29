@@ -18,7 +18,7 @@
             <div class="absolute inset-x-0 top-0 flex items-start justify-between gap-2 p-3">
                 <span class="badge border-void/30 bg-void/70 text-ink backdrop-blur">{{ $movie->age_rating }}</span>
                 @if ($isUpcoming)
-                    <span class="badge badge-gold">Coming soon</span>
+                    <span class="badge badge-gold">{{ __('messages.nav.coming_soon') }}</span>
                 @endif
             </div>
 

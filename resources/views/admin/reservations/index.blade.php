@@ -1,59 +1,59 @@
 @extends('layouts.admin')
 
-@section('title', 'Reservations')
+@section('title', __('admin.reservations.title'))
 
 @section('content')
     <div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
-            <p class="eyebrow">Bookings</p>
-            <h1 class="mt-2 font-display text-4xl text-ink sm:text-5xl">Reservations</h1>
-            <p class="mt-2 text-sm text-muted">Inspect bookings, seat assignments, statuses, and stored totals. Reservation history is read-only.</p>
+            <p class="eyebrow">{{ __('admin.reservations.eyebrow') }}</p>
+            <h1 class="mt-2 font-display text-4xl text-ink sm:text-5xl">{{ __('admin.reservations.title') }}</h1>
+            <p class="mt-2 text-sm text-muted">{{ __('admin.reservations.inspect_bookings') }}</p>
         </div>
-        <span class="badge badge-muted w-fit">{{ $reservations->total() }} total</span>
+        <span class="badge badge-muted w-fit">{{ __('admin.reservations.total', ['total' => $reservations->total()]) }}</span>
     </div>
 
     <form method="GET" action="{{ route('admin.reservations.index') }}" class="mt-6 flex flex-col gap-3 rounded-2xl border border-line bg-surface/60 p-4 sm:flex-row sm:items-end">
         <div class="flex-1">
-            <label for="q" class="field-label">Search</label>
-            <input id="q" name="q" type="search" value="{{ $filters['q'] }}" placeholder="Reference, customer name, or email" class="field-input">
+            <label for="q" class="field-label">{{ __('admin.reservations.search') }}</label>
+            <input id="q" name="q" type="search" value="{{ $filters['q'] }}" placeholder="{{ __('admin.reservations.reference_customer_email') }}" class="field-input">
         </div>
         <div class="sm:w-44">
-            <label for="status" class="field-label">Status</label>
+            <label for="status" class="field-label">{{ __('admin.reservations.status') }}</label>
             <select id="status" name="status" class="field-input">
-                <option value="">All statuses</option>
+                <option value="">{{ __('admin.status.all') }}</option>
                 @foreach ($statuses as $status)
                     <option value="{{ $status->value }}" @selected($filters['status'] === $status->value)>{{ $status->label() }}</option>
                 @endforeach
             </select>
         </div>
         <div class="sm:w-44">
-            <label for="date" class="field-label">Screening date</label>
+            <label for="date" class="field-label">{{ __('admin.reservations.screening_date') }}</label>
             <input id="date" name="date" type="date" value="{{ $filters['date'] }}" class="field-input">
         </div>
         <div class="flex gap-2">
-            <button type="submit" class="btn btn-primary btn-sm">Filter</button>
+            <button type="submit" class="btn btn-primary btn-sm">{{ __('admin.genres.filter') }}</button>
             @if ($filters['q'] !== '' || $filters['status'] !== '' || $filters['date'] !== '')
-                <a href="{{ route('admin.reservations.index') }}" class="btn btn-ghost btn-sm">Clear</a>
+                <a href="{{ route('admin.reservations.index') }}" class="btn btn-ghost btn-sm">{{ __('admin.genres.clear') }}</a>
             @endif
         </div>
     </form>
 
     @if ($reservations->isEmpty())
-        <x-empty-state class="mt-6" title="No reservations found" description="Adjust the filters or wait for the first booking." icon="ticket" />
+        <x-empty-state class="mt-6" title="{{ __('admin.reservations.no_reservations_found') }}" description="{{ __('admin.reservations.adjust_filters_or_wait') }}" icon="ticket" />
     @else
         <div class="mt-6 overflow-hidden rounded-2xl border border-line bg-surface">
             <div class="overflow-x-auto">
                 <table class="admin-table">
                     <thead>
                         <tr>
-                            <th scope="col">Reference</th>
-                            <th scope="col">Customer</th>
-                            <th scope="col" class="hidden lg:table-cell">Screening</th>
-                            <th scope="col" class="hidden md:table-cell">Seats</th>
-                            <th scope="col">Total</th>
-                            <th scope="col">Status</th>
-                            <th scope="col" class="hidden xl:table-cell">Booked</th>
-                            <th scope="col" class="text-right">View</th>
+                            <th scope="col">{{ __('admin.reservations.reference') }}</th>
+                            <th scope="col">{{ __('admin.reservations.customer') }}</th>
+                            <th scope="col" class="hidden lg:table-cell">{{ __('admin.reservations.screening') }}</th>
+                            <th scope="col" class="hidden md:table-cell">{{ __('admin.reservations.seats') }}</th>
+                            <th scope="col">{{ __('admin.reservations.total_amount') }}</th>
+                            <th scope="col">{{ __('admin.reservations.status') }}</th>
+                            <th scope="col" class="hidden xl:table-cell">{{ __('admin.reservations.booked_at') }}</th>
+                            <th scope="col" class="text-right">{{ __('admin.reservations.view') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -69,7 +69,7 @@
                                 </td>
                                 <td class="hidden lg:table-cell">
                                     <p class="max-w-48 truncate text-xs text-ink">{{ $reservation->screening->movie->title }}</p>
-                                    <p class="text-[10px] text-muted">{{ $reservation->screening->starts_at->format('M j, Y · H:i') }}</p>
+                                    <p class="text-[10px] text-muted">{{ \App\Support\CinemaFormat::longDate($reservation->screening->starts_at) }}</p>
                                 </td>
                                 <td class="hidden max-w-44 md:table-cell">
                                     <p class="truncate text-xs text-muted">{{ $reservation->seatLabelList() }}</p>
@@ -77,9 +77,9 @@
                                 </td>
                                 <td class="whitespace-nowrap text-xs text-ink">{{ \App\Support\CinemaFormat::money($reservation->total) }}</td>
                                 <td><x-status-badge :label="$reservation->status->label()" :tone="$tone" /></td>
-                                <td class="hidden whitespace-nowrap text-[10px] text-muted xl:table-cell">{{ $reservation->created_at->format('M j, Y H:i') }}</td>
+                                <td class="hidden whitespace-nowrap text-[10px] text-muted xl:table-cell">{{ \App\Support\CinemaFormat::longDate($reservation->created_at) }}</td>
                                 <td class="text-right">
-                                    <a href="{{ route('admin.reservations.show', $reservation) }}" class="btn btn-secondary btn-sm">Open</a>
+                                    <a href="{{ route('admin.reservations.show', $reservation) }}" class="btn btn-secondary btn-sm">{{ __('admin.reservations.open') }}</a>
                                 </td>
                             </tr>
                         @endforeach

@@ -1,21 +1,21 @@
 @extends('layouts.auth')
 
-@section('title', 'Sign in')
-@section('meta_description', 'Sign in to manage your cinema reservations.')
+@section('title', __('auth.title.login'))
+@section('meta_description', __('auth.meta_description.login'))
 
 @section('content')
-    <p class="eyebrow">Welcome back</p>
-    <h1 class="mt-3 font-display text-4xl leading-none text-ink sm:text-5xl">Sign in</h1>
+    <p class="eyebrow">{{ __('auth.eyebrow.login') }}</p>
+    <h1 class="mt-3 font-display text-4xl leading-none text-ink sm:text-5xl">{{ __('auth.heading.login') }}</h1>
     <p class="mt-4 text-sm leading-6 text-muted">
-        Pick up where you left off and keep your reservations in one place.
-        New here?
-        <a href="{{ route('register') }}" class="font-medium text-gold underline-offset-4 hover:underline">Create an account</a>.
+        {{ __('auth.intro.login') }}
+        {{ __('auth.form.new_here') }}
+        <a href="{{ route('register') }}" class="font-medium text-gold underline-offset-4 hover:underline">{{ __('auth.form.create_account') }}</a>.
     </p>
 
     <form method="POST" action="{{ route('login.store') }}" class="mt-8 space-y-5" novalidate>
         @csrf
 
-        <x-field name="email" label="Email address" :required="true">
+        <x-field name="email" label="{{ __('auth.labels.email') }}" :required="true">
             <input
                 id="email"
                 name="email"
@@ -30,7 +30,7 @@
             >
         </x-field>
 
-        <x-field name="password" label="Password" :required="true">
+        <x-field name="password" label="{{ __('auth.labels.password') }}" :required="true">
             <div class="relative">
                 <input
                     id="password"
@@ -63,11 +63,11 @@
                 @checked(old('remember'))
                 class="h-4 w-4 rounded border-line bg-night text-gold focus:ring-2 focus:ring-gold/30"
             >
-            Keep me signed in on this device
+            {{ __('auth.labels.remember') }}
         </label>
 
         <button type="submit" class="btn btn-primary w-full">
-            Sign in
+            {{ __('auth.buttons.sign_in') }}
             <x-icon name="arrow-right" class="h-4 w-4" />
         </button>
     </form>
@@ -75,20 +75,19 @@
     <aside class="mt-8 rounded-2xl border border-line bg-surface/70 p-5" aria-label="Demo accounts">
         <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-gold">
             <x-icon name="sparkle" class="h-4 w-4" />
-            Demo access
+            {{ __('auth.demo.title') }}
         </div>
         <p class="mt-2 text-xs leading-5 text-muted">
-            Local demo accounts only. Both use the password
-            <code class="rounded bg-night px-1.5 py-0.5 font-mono text-[11px] text-ink">Cinema123!</code>
+            {{ __('auth.demo.intro', ['password' => '<code class="rounded bg-night px-1.5 py-0.5 font-mono text-[11px] text-ink">Cinema123!</code>']) }}
         </p>
         <dl class="mt-4 space-y-2 text-xs">
             <div class="flex items-center justify-between gap-3">
-                <dt class="text-muted">Customer</dt>
-                <dd class="font-mono text-ink/80">customer@cinema.test</dd>
+                <dt class="text-muted">{{ __('auth.demo.customer') }}</dt>
+                <dd class="font-mono text-ink/80">{{ __('auth.demo.customer_email') }}</dd>
             </div>
             <div class="flex items-center justify-between gap-3">
-                <dt class="text-muted">Administrator</dt>
-                <dd class="font-mono text-ink/80">admin@cinema.test</dd>
+                <dt class="text-muted">{{ __('auth.demo.admin') }}</dt>
+                <dd class="font-mono text-ink/80">{{ __('auth.demo.admin_email') }}</dd>
             </div>
         </dl>
     </aside>

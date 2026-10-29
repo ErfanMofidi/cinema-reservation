@@ -1,7 +1,7 @@
 @extends('layouts.error')
 
-@section('title', 'Too many requests')
+@section('title', __('messages.errors.too_many_requests'))
 @section('code', '429')
-@section('eyebrow', 'One moment, please')
-@section('heading', 'You are moving quickly')
-@section('description', 'Too many attempts were made in a short time. Wait a minute, then refresh the page and try again.')
+@section('eyebrow', __('messages.errors.one_moment'))
+@section('heading', __('messages.errors.moving_quickly'))
+@section('description', __('messages.errors.too_many_attempts'))

@@ -77,7 +77,7 @@ it('handles empty search results and pagination', function () {
 it('renders the custom not-found page', function () {
     $this->get('/this-page-does-not-exist')
         ->assertNotFound()
-        ->assertSee('This page is missing');
+        ->assertSee('این صفحه مفقود است');
 });
 
 it('hides draft and archived films from the public film page', function () {

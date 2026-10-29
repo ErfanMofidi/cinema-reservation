@@ -1,21 +1,21 @@
 @extends('layouts.auth')
 
-@section('title', 'Create an account')
-@section('meta_description', 'Create an account to reserve seats and keep your cinema tickets together.')
+@section('title', __('auth.title.register'))
+@section('meta_description', __('auth.meta_description.register'))
 
 @section('content')
-    <p class="eyebrow">Join the list</p>
-    <h1 class="mt-3 font-display text-4xl leading-none text-ink sm:text-5xl">Create your account</h1>
+    <p class="eyebrow">{{ __('auth.eyebrow.register') }}</p>
+    <h1 class="mt-3 font-display text-4xl leading-none text-ink sm:text-5xl">{{ __('auth.heading.register') }}</h1>
     <p class="mt-4 text-sm leading-6 text-muted">
-        Save your reservations, revisit past screenings, and cancel online when plans change.
-        Already a member?
-        <a href="{{ route('login') }}" class="font-medium text-gold underline-offset-4 hover:underline">Sign in</a>.
+        {{ __('auth.intro.register') }}
+        {{ __('auth.form.already_member') }}
+        <a href="{{ route('login') }}" class="font-medium text-gold underline-offset-4 hover:underline">{{ __('auth.form.sign_in') }}</a>.
     </p>
 
     <form method="POST" action="{{ route('register.store') }}" class="mt-8 space-y-5" novalidate>
         @csrf
 
-        <x-field name="name" label="Full name" :required="true">
+        <x-field name="name" label="{{ __('auth.labels.name') }}" :required="true">
             <input
                 id="name"
                 name="name"
@@ -29,7 +29,7 @@
             >
         </x-field>
 
-        <x-field name="email" label="Email address" :required="true">
+        <x-field name="email" label="{{ __('auth.labels.email') }}" :required="true">
             <input
                 id="email"
                 name="email"
@@ -43,7 +43,7 @@
             >
         </x-field>
 
-        <x-field name="password" label="Password" :required="true" hint="At least 8 characters, including a letter and a number.">
+        <x-field name="password" label="{{ __('auth.labels.password') }}" :required="true" hint="{{ __('auth.labels.password_hint') }}">
             <div class="relative">
                 <input
                     id="password"
@@ -68,7 +68,7 @@
             </div>
         </x-field>
 
-        <x-field name="password_confirmation" label="Confirm password" :required="true">
+        <x-field name="password_confirmation" label="{{ __('auth.labels.password_confirmation') }}" :required="true">
             <input
                 id="password_confirmation"
                 name="password_confirmation"
@@ -81,11 +81,11 @@
         </x-field>
 
         <p class="text-xs leading-5 text-muted/80">
-            By creating an account you agree that this is a portfolio demo and that no real payment is collected.
+            {{ __('auth.form.no_real_payment') }}
         </p>
 
         <button type="submit" class="btn btn-primary w-full">
-            Create account
+            {{ __('auth.buttons.create_account') }}
             <x-icon name="arrow-right" class="h-4 w-4" />
         </button>
     </form>

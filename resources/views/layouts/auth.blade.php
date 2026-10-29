@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" dir="{{ app()->getLocale() == "fa" ? "rtl" : "ltr" }}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -24,12 +24,12 @@
                 </a>
             </div>
             <div class="relative z-10 max-w-lg p-10 pb-14">
-                <p class="eyebrow">A ticket to somewhere else</p>
-                <p class="mt-4 font-display text-4xl leading-[1.1] text-ink xl:text-5xl">The lights go down.<br>The world opens.</p>
-                <p class="mt-5 text-sm leading-6 text-ink/60">{{ config('cinema.tagline') }} Reserve your seat in a few thoughtful steps.</p>
+                <p class="eyebrow">{{ __('home.welcome.welcome') }}</p>
+                <p class="mt-4 font-display text-4xl leading-[1.1] text-ink xl:text-5xl">{{ __('home.welcome.welcome') }}<br>{{ __('auth.heading.world_opens') }}</p>
+                <p class="mt-5 text-sm leading-6 text-ink/60">{{ config('cinema.tagline') }} {{ __('home.plan_visit.subtitle') }}.</p>
                 <p class="mt-10 inline-flex items-center gap-2 text-xs text-ink/40">
                     <x-icon name="shield" class="h-3.5 w-3.5" />
-                    Demo checkout — no payment is collected.
+                    {{ __('messages.footer.demo_checkout') }}
                 </p>
             </div>
         </section>
@@ -56,7 +56,7 @@
                         @endif
                         @if ($errors->any())
                             <x-alert type="error">
-                                <p class="font-medium">Please review the highlighted fields.</p>
+                                <p class="font-medium">{{ __('messages.component.review_fields') }}</p>
                                 <ul class="mt-1.5 list-inside list-disc space-y-0.5 text-xs text-danger/90">
                                     @foreach ($errors->all() as $error)
                                         <li>{{ $error }}</li>
@@ -70,7 +70,7 @@
                 @yield('content')
 
                 <p class="mt-10 text-center text-xs text-muted/60">
-                    <a href="{{ route('home') }}" class="transition hover:text-gold">Back to the cinema</a>
+                    <a href="{{ route('home') }}" class="transition hover:text-gold">{{ __('messages.nav.back_to_cinema') }}</a>
                 </p>
             </div>
         </section>

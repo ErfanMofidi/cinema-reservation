@@ -1,3 +1,5 @@
+const getLocale = () => document.documentElement.lang?.replace('_', '-') || 'en';
+
 const onReady = (callback) => {
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', callback, { once: true });
@@ -180,7 +182,7 @@ function initSeatMap() {
     const bookable = root.dataset.bookable === '1';
     const availabilityStatus = document.querySelector('[data-availability-status]');
     const refreshButton = document.querySelector('[data-refresh-seats]');
-    const formatter = new Intl.NumberFormat('en-US');
+    const formatter = new Intl.NumberFormat(getLocale());
 
     if (!summary) {
         return;

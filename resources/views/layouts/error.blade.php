@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" dir="{{ app()->getLocale() == "fa" ? "rtl" : "ltr" }}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -18,7 +18,7 @@
                 </span>
                 <span class="font-display text-xl tracking-wide text-ink">{{ config('cinema.name') }}</span>
             </a>
-            <a href="{{ route('movies.index') }}" class="text-xs text-muted transition hover:text-gold">Browse films</a>
+            <a href="{{ route('movies.index') }}" class="text-xs text-muted transition hover:text-gold">{{ __('messages.nav.browse_films') }}</a>
         </div>
     </header>
 
@@ -30,8 +30,8 @@
             <p class="mx-auto mt-4 max-w-md text-sm leading-6 text-muted">@yield('description', 'Please go back and try again.')</p>
 
             <div class="mt-8 flex flex-wrap justify-center gap-3">
-                <a href="{{ route('home') }}" class="btn btn-primary btn-sm">Back to the cinema</a>
-                <a href="{{ route('movies.index') }}" class="btn btn-secondary btn-sm">Browse films</a>
+                <a href="{{ route('home') }}" class="btn btn-primary btn-sm">{{ __('messages.nav.back_to_cinema') }}</a>
+                <a href="{{ route('movies.index') }}" class="btn btn-secondary btn-sm">{{ __('messages.nav.browse_films') }}</a>
             </div>
 
             @yield('extra')

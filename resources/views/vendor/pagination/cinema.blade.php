@@ -1,19 +1,19 @@
 @if ($paginator->hasPages())
     <nav role="navigation" aria-label="Pagination" class="mt-10 flex flex-col items-center justify-between gap-4 border-t border-line-soft pt-6 sm:flex-row">
         <p class="text-xs text-muted">
-            Showing
+            {{ __('messages.pagination.showing') }}
             <span class="font-medium text-ink">{{ $paginator->firstItem() }}</span>
-            to
+            {{ __('messages.pagination.to') }}
             <span class="font-medium text-ink">{{ $paginator->lastItem() }}</span>
-            of
+            {{ __('messages.pagination.of') }}
             <span class="font-medium text-ink">{{ $paginator->total() }}</span>
         </p>
 
         <div class="flex items-center gap-1.5">
             @if ($paginator->onFirstPage())
-                <span class="flex h-9 items-center rounded-full border border-line px-3 text-xs text-muted/40" aria-disabled="true">Previous</span>
+                <span class="flex h-9 items-center rounded-full border border-line px-3 text-xs text-muted/40" aria-disabled="true">{{ __('messages.pagination.previous') }}</span>
             @else
-                <a href="{{ $paginator->previousPageUrl() }}" rel="prev" class="flex h-9 items-center rounded-full border border-line px-3 text-xs text-muted transition hover:border-gold/50 hover:text-gold">Previous</a>
+                <a href="{{ $paginator->previousPageUrl() }}" rel="prev" class="flex h-9 items-center rounded-full border border-line px-3 text-xs text-muted transition hover:border-gold/50 hover:text-gold">{{ __('messages.pagination.previous') }}</a>
             @endif
 
             @foreach ($elements as $element)
@@ -33,9 +33,9 @@
             @endforeach
 
             @if ($paginator->hasMorePages())
-                <a href="{{ $paginator->nextPageUrl() }}" rel="next" class="flex h-9 items-center rounded-full border border-line px-3 text-xs text-muted transition hover:border-gold/50 hover:text-gold">Next</a>
+                <a href="{{ $paginator->nextPageUrl() }}" rel="next" class="flex h-9 items-center rounded-full border border-line px-3 text-xs text-muted transition hover:border-gold/50 hover:text-gold">{{ __('messages.pagination.next') }}</a>
             @else
-                <span class="flex h-9 items-center rounded-full border border-line px-3 text-xs text-muted/40" aria-disabled="true">Next</span>
+                <span class="flex h-9 items-center rounded-full border border-line px-3 text-xs text-muted/40" aria-disabled="true">{{ __('messages.pagination.next') }}</span>
             @endif
         </div>
     </nav>

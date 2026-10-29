@@ -1,7 +1,7 @@
 @extends('layouts.error')
 
-@section('title', 'Page not found')
+@section('title', __('messages.errors.page_not_found'))
 @section('code', '404')
-@section('eyebrow', 'Nothing in this frame')
-@section('heading', 'This page is missing')
-@section('description', 'The link may be out of date, or the film, screening, or reservation may no longer exist. The programme is still playing.')
+@section('eyebrow', __('messages.errors.nothing_in_this_frame'))
+@section('heading', __('messages.errors.this_page_is_missing'))
+@section('description', __('messages.errors.link_out_of_date'))

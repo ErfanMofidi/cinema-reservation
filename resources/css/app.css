@@ -318,3 +318,66 @@
         color: black;
     }
 }
+
+[dir="rtl"] {
+    .admin-table {
+        @apply text-right;
+    }
+
+    .admin-table th,
+    .admin-table td {
+        @apply text-right;
+    }
+
+    .field-input {
+        @apply text-right;
+    }
+
+    .btn {
+        @apply flex-row-reverse;
+    }
+
+    .badge {
+        @apply flex-row-reverse;
+    }
+
+    .seat-label {
+        @apply text-right;
+    }
+
+    .seat-row-label {
+        @apply text-right;
+    }
+
+    .field-label {
+        @apply text-right;
+    }
+
+    .admin-nav-link {
+        @apply flex-row-reverse;
+    }
+
+    .eyebrow {
+        @apply text-right;
+    }
+
+    .text-left {
+        @apply text-right;
+    }
+
+    .text-right {
+        @apply text-left;
+    }
+
+    .ml-1 {
+        @apply mr-1;
+    }
+
+    .mr-1 {
+        @apply ml-1;
+    }
+
+    .flex-row {
+        @apply flex-row-reverse;
+    }
+}

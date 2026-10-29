@@ -1,30 +1,30 @@
 @extends('layouts.admin')
 
-@section('title', 'Edit screening')
+@section('title', __('admin.screenings.edit_screening'))
 
 @section('content')
     <div class="max-w-4xl">
         <nav aria-label="Breadcrumb" class="text-xs text-muted">
             <ol class="flex items-center gap-2">
-                <li><a href="{{ route('admin.screenings.index') }}" class="hover:text-gold">Screenings</a></li>
+                <li><a href="{{ route('admin.screenings.index') }}" class="hover:text-gold">{{ __('admin.screenings.title') }}</a></li>
                 <li aria-hidden="true" class="text-line">/</li>
-                <li aria-current="page" class="text-ink/70">{{ $screening->movie->title }} · {{ $screening->starts_at->format('M j, H:i') }}</li>
+                <li aria-current="page" class="text-ink/70">{{ $screening->movie->title }} · {{ \App\Support\CinemaFormat::longDate($screening->starts_at) }} · {{ \App\Support\CinemaFormat::time($screening->starts_at) }}</li>
             </ol>
         </nav>
 
         <div class="mt-5 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div>
-                <p class="eyebrow">Schedule</p>
-                <h1 class="mt-2 font-display text-4xl text-ink">Edit screening</h1>
-                <p class="mt-2 text-sm text-muted">{{ $screening->movie->title }} · {{ $screening->auditorium->name }} · {{ $screening->reservations()->count() }} reservations</p>
+                <p class="eyebrow">{{ __('admin.screenings.eyebrow') }}</p>
+                <h1 class="mt-2 font-display text-4xl text-ink">{{ __('admin.screenings.edit_screening') }}</h1>
+                <p class="mt-2 text-sm text-muted">{{ $screening->movie->title }} · {{ $screening->auditorium->name }} · {{ $screening->reservations()->count() }} {{ __('admin.reservations.seats_count', ['count' => $screening->reservations()->count()]) }}</p>
             </div>
             <x-status-badge :label="$screening->status->label()" :tone="$screening->status === \App\Enums\ScreeningStatus::Scheduled ? 'gold' : 'muted'" />
         </div>
 
         @if ($screening->reservations()->exists())
             <x-alert type="warning" class="mt-5">
-                <p class="font-medium">This screening has reservation history.</p>
-                <p class="mt-1 text-xs text-warning/85">Changing the time or price does not rewrite existing reservation totals. Existing reservations keep their seat and price snapshots.</p>
+                <p class="font-medium">{{ __('admin.reservations.reservation_history') }}</p>
+                <p class="mt-1 text-xs text-warning/85">{{ __('admin.reservations.reservation_history_detail') }}</p>
             </x-alert>
         @endif
 

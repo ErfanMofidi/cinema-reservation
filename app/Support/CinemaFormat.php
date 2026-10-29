@@ -13,22 +13,22 @@ final class CinemaFormat
 
     public static function date(CarbonInterface $date): string
     {
-        return $date->format('D, M j');
+        return $date->locale(app()->getLocale())->format('D, M j');
     }
 
     public static function longDate(CarbonInterface $date): string
     {
-        return $date->format('l, F j, Y');
+        return $date->locale(app()->getLocale())->format('l, F j, Y');
     }
 
     public static function time(CarbonInterface $date): string
     {
-        return $date->format('H:i');
+        return $date->locale(app()->getLocale())->format('H:i');
     }
 
     public static function dateTime(CarbonInterface $date): string
     {
-        return $date->format('D, M j · H:i');
+        return $date->locale(app()->getLocale())->format('D, M j · H:i');
     }
 
     public static function duration(int $minutes): string

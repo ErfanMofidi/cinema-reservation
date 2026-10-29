@@ -1,20 +1,18 @@
 @extends('layouts.app')
 
-@section('title', 'Your profile')
+@section('title', __('messages.profile.your_profile'))
 
 @section('content')
     <div class="container-cinema py-10 sm:py-14">
         <div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div>
-                <p class="eyebrow">Account</p>
-                <h1 class="mt-2 font-display text-4xl text-ink sm:text-5xl">Your profile</h1>
-                <p class="mt-3 max-w-xl text-sm leading-6 text-muted">
-                    Keep your contact details current and update the password used to protect your reservations.
-                </p>
+                <p class="eyebrow">{{ __('messages.profile.account') }}</p>
+                <h1 class="mt-2 font-display text-4xl text-ink sm:text-5xl">{{ __('messages.profile.your_profile') }}</h1>
+                <p class="mt-3 max-w-xl text-sm leading-6 text-muted">{{ __('messages.profile.keep_contact') }}</p>
             </div>
             <a href="{{ route('reservations.index') }}" class="btn btn-secondary btn-sm w-fit">
                 <x-icon name="ticket" class="h-4 w-4" />
-                My reservations
+                {{ __('messages.profile.my_reservations') }}
             </a>
         </div>
 
@@ -22,8 +20,8 @@
             <section class="card p-6 sm:p-8" aria-labelledby="profile-details-heading">
                 <div class="flex items-start justify-between gap-4">
                     <div>
-                        <h2 id="profile-details-heading" class="font-display text-2xl text-ink">Profile details</h2>
-                        <p class="mt-1 text-xs text-muted">Used on your booking confirmations and account menu.</p>
+                        <h2 id="profile-details-heading" class="font-display text-2xl text-ink">{{ __('messages.profile.profile_details') }}</h2>
+                        <p class="mt-1 text-xs text-muted">{{ __('messages.profile.used_on_booking') }}</p>
                     </div>
                     <span class="badge badge-gold">{{ $user->role->label() }}</span>
                 </div>
@@ -59,15 +57,15 @@
                     </x-field>
 
                     <div class="flex justify-end">
-                        <button type="submit" class="btn btn-primary btn-sm">Save details</button>
+                        <button type="submit" class="btn btn-primary btn-sm">{{ __('messages.profile.save_details') }}</button>
                     </div>
                 </form>
             </section>
 
             <section class="card p-6 sm:p-8" aria-labelledby="password-heading">
-                <h2 id="password-heading" class="font-display text-2xl text-ink">Password</h2>
+                <h2 id="password-heading" class="font-display text-2xl text-ink">{{ __('messages.profile.password') }}</h2>
                 <p class="mt-1 text-xs text-muted">
-                    Use at least 8 characters with a letter and a number.
+                    {{ __('messages.profile.use_at_least') }}
                 </p>
 
                 <form method="POST" action="{{ route('profile.password') }}" class="mt-6 space-y-5" novalidate>
@@ -124,17 +122,17 @@
                     </x-field>
 
                     <div class="flex justify-end">
-                        <button type="submit" class="btn btn-secondary btn-sm">Update password</button>
+                        <button type="submit" class="btn btn-secondary btn-sm">{{ __('messages.profile.update_password') }}</button>
                     </div>
                 </form>
             </section>
         </div>
 
         <p class="mt-6 text-xs text-muted">
-            Signed in as <span class="text-ink">{{ $user->email }}</span>. Need to leave?
+            {{ __('messages.profile.signed_in_as') }} <span class="text-ink">{{ $user->email }}</span>. {{ __('messages.profile.need_to_leave') }}
             <form method="POST" action="{{ route('logout') }}" class="inline">
                 @csrf
-                <button type="submit" class="font-medium text-gold underline-offset-4 hover:underline">Sign out</button>
+                <button type="submit" class="font-medium text-gold underline-offset-4 hover:underline">{{ __('messages.profile.sign_out') }}</button>
             </form>
         </p>
     </div>

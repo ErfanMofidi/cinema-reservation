@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Now showing')
+@section('title', __('messages.nav.now_showing'))
 
 @section('content')
     @if ($featured)
@@ -16,7 +16,7 @@
             <div class="container-cinema relative py-16 sm:py-24">
                 <div class="grid items-center gap-12 lg:grid-cols-[1.35fr_0.65fr]">
                     <div class="animate-fade-up">
-                        <span class="badge badge-gold">Now showing</span>
+                        <span class="badge badge-gold">{{ __('messages.home.badge.now_showing') }}</span>
                         <h1 class="mt-5 max-w-3xl font-display text-5xl leading-[0.95] text-ink sm:text-6xl lg:text-7xl">
                             {{ $featured->title }}
                         </h1>
@@ -47,10 +47,10 @@
                         <div class="mt-8 flex flex-wrap gap-3">
                             <a href="{{ route('movies.show', $featured) }}" class="btn btn-primary">
                                 <x-icon name="ticket" class="h-4 w-4" />
-                                Choose a showtime
+                                {{ __('messages.home.featured.choose_showtime') }}
                             </a>
                             <a href="{{ route('movies.index', ['showing' => 'now']) }}" class="btn btn-secondary">
-                                Browse all films
+                                {{ __('messages.home.featured.browse_all_films') }}
                             </a>
                         </div>
                     </div>
@@ -70,14 +70,14 @@
         </section>
     @else
         <section class="container-cinema py-20">
-            <p class="eyebrow">Welcome</p>
+            <p class="eyebrow">{{ __('messages.home.welcome.welcome') }}</p>
             <h1 class="mt-4 max-w-3xl font-display text-5xl leading-none text-ink sm:text-7xl">
-                The lights go down.<br>The world opens.
+                {{ __('auth.heading.world_opens') }}
             </h1>
             <p class="mt-5 max-w-xl text-sm leading-7 text-muted">
-                {{ config('cinema.tagline') }} Browse the programme and reserve your seat in a few thoughtful steps.
+                {{ config('cinema.tagline') }} {{ __('messages.home.plan_visit.subtitle') }}.
             </p>
-            <a href="{{ route('movies.index') }}" class="btn btn-primary mt-8">Browse films</a>
+            <a href="{{ route('movies.index') }}" class="btn btn-primary mt-8">{{ __('messages.home.welcome.browse_films') }}</a>
         </section>
     @endif
 
@@ -86,8 +86,8 @@
             <div class="rounded-3xl border border-gold/20 bg-gold/[0.035] p-6 sm:p-8">
                 <div class="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
                     <div>
-                        <p class="eyebrow">Tonight</p>
-                        <h2 class="mt-2 font-display text-3xl text-ink">Still time to catch a film</h2>
+                        <p class="eyebrow">{{ __('messages.home.tonight.title') }}</p>
+                        <h2 class="mt-2 font-display text-3xl text-ink">{{ __('messages.home.tonight.still_time') }}</h2>
                     </div>
                     <p class="text-xs text-muted">{{ \App\Support\CinemaFormat::longDate(today()) }}</p>
                 </div>
@@ -104,7 +104,7 @@
                                 <p class="mt-1 text-[11px] text-muted">
                                     {{ $screening->auditorium->name }}
                                     <span class="px-1 text-line">/</span>
-                                    {{ max(0, $screening->auditorium->capacity - $screening->seat_holds_count) }} seats left
+                                    {{ max(0, $screening->auditorium->capacity - $screening->seat_holds_count) }} {{ __('messages.home.tonight.seats_left') }}
                                 </p>
                             </div>
                             <x-icon name="arrow-right" class="mt-1 h-4 w-4 shrink-0 text-muted transition group-hover:translate-x-0.5 group-hover:text-gold" />
@@ -119,11 +119,11 @@
         <section class="container-cinema py-12">
             <div class="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
                 <div>
-                    <p class="eyebrow">On screen</p>
-                    <h2 class="mt-2 font-display text-4xl text-ink">Now showing</h2>
+                    <p class="eyebrow">{{ __('messages.home.now_showing.on_screen') }}</p>
+                    <h2 class="mt-2 font-display text-4xl text-ink">{{ __('messages.home.badge.now_showing') }}</h2>
                 </div>
                 <a href="{{ route('movies.index', ['showing' => 'now']) }}" class="group inline-flex items-center gap-2 text-sm text-muted transition hover:text-gold">
-                    All showtimes
+                    {{ __('messages.home.now_showing.all_showtimes') }}
                     <x-icon name="arrow-right" class="h-4 w-4 transition group-hover:translate-x-0.5" />
                 </a>
             </div>
@@ -140,11 +140,11 @@
         <section class="container-cinema py-12">
             <div class="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
                 <div>
-                    <p class="eyebrow">On the horizon</p>
-                    <h2 class="mt-2 font-display text-4xl text-ink">Coming soon</h2>
+                    <p class="eyebrow">{{ __('messages.home.coming_soon.on_horizon') }}</p>
+                    <h2 class="mt-2 font-display text-4xl text-ink">{{ __('messages.nav.coming_soon') }}</h2>
                 </div>
                 <a href="{{ route('movies.index', ['showing' => 'coming']) }}" class="group inline-flex items-center gap-2 text-sm text-muted transition hover:text-gold">
-                    See what's ahead
+                    {{ __('messages.home.coming_soon.see_what_ahead') }}
                     <x-icon name="arrow-right" class="h-4 w-4 transition group-hover:translate-x-0.5" />
                 </a>
             </div>
@@ -155,18 +155,17 @@
                 @endforeach
             </div>
 
-            <p class="mt-6 text-xs text-muted">Upcoming films open ticket sales closer to their release date.</p>
+            <p class="mt-6 text-xs text-muted">{{ __('messages.home.coming_soon.upcoming_note') }}</p>
         </section>
     @endif
 
     <section class="container-cinema py-12">
         <div class="rounded-3xl border border-line bg-surface/70 p-6 sm:p-8">
             <div class="max-w-2xl">
-                <p class="eyebrow">Plan your visit</p>
-                <h2 class="mt-2 font-display text-3xl text-ink">A cinema built around the film</h2>
+                <p class="eyebrow">{{ __('messages.home.plan_visit.title') }}</p>
+                <h2 class="mt-2 font-display text-3xl text-ink">{{ __('messages.home.plan_visit.subtitle') }}</h2>
                 <p class="mt-3 text-sm leading-6 text-muted">
-                    {{ config('cinema.name') }} is a small neighbourhood cinema with reserved seating, a weekly
-                    programme, and a checkout that respects your time.
+                    {{ config('cinema.name') }} {{ __('messages.home.plan_visit.demo_checkout') }}.
                 </p>
             </div>
 
@@ -175,7 +174,7 @@
                     <span class="flex h-10 w-10 items-center justify-center rounded-full border border-gold/30 bg-gold/10 text-gold">
                         <x-icon name="building" class="h-4 w-4" />
                     </span>
-                    <h3 class="mt-4 text-sm font-semibold text-ink">Two auditoriums</h3>
+                    <h3 class="mt-4 text-sm font-semibold text-ink">{{ __('messages.home.plan_visit.two_auditoriums') }}</h3>
                     <p class="mt-1.5 text-xs leading-5 text-muted">
                         {{ $auditoriums->map(fn ($auditorium) => $auditorium->name)->join(' and ') ?: 'Intimate rooms with reserved seating.' }}
                     </p>
@@ -184,7 +183,7 @@
                     <span class="flex h-10 w-10 items-center justify-center rounded-full border border-gold/30 bg-gold/10 text-gold">
                         <x-icon name="calendar" class="h-4 w-4" />
                     </span>
-                    <h3 class="mt-4 text-sm font-semibold text-ink">Seven days a week</h3>
+                    <h3 class="mt-4 text-sm font-semibold text-ink">{{ __('messages.home.plan_visit.seven_days') }}</h3>
                     <p class="mt-1.5 text-xs leading-5 text-muted">
                         Afternoon and evening screenings every day, with seats released online up to 15 minutes before showtime.
                     </p>
@@ -193,7 +192,7 @@
                     <span class="flex h-10 w-10 items-center justify-center rounded-full border border-gold/30 bg-gold/10 text-gold">
                         <x-icon name="shield" class="h-4 w-4" />
                     </span>
-                    <h3 class="mt-4 text-sm font-semibold text-ink">Demo checkout</h3>
+                    <h3 class="mt-4 text-sm font-semibold text-ink">{{ __('messages.home.plan_visit.demo_checkout') }}</h3>
                     <p class="mt-1.5 text-xs leading-5 text-muted">
                         No card details are collected and no payment is charged. Reservations are confirmed immediately for this portfolio demo.
                     </p>

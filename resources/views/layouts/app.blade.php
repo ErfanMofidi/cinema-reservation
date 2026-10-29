@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace("_", "-", app()->getLocale()) }}" dir="{{ app()->getLocale() == "fa" ? "rtl" : "ltr" }}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -25,24 +25,42 @@
                     </span>
                     <span class="leading-none">
                         <span class="block font-display text-[1.45rem] leading-none tracking-wide text-ink">{{ config('cinema.name') }}</span>
-                        <span class="mt-1 block text-[8px] font-semibold uppercase tracking-[0.32em] text-muted">Ticket reservations</span>
+                        <span class="mt-1 block text-[8px] font-semibold uppercase tracking-[0.32em] text-muted">{{ __('messages.nav.my_tickets') }}</span>
                     </span>
                 </a>
 
                 <nav class="hidden items-center gap-1 md:flex" aria-label="Main navigation">
-                    <a href="{{ route('movies.index') }}" @class(['nav-link', 'nav-link-active' => request()->routeIs('movies.index') && ! request()->filled('showing')])>All films</a>
-                    <a href="{{ route('movies.index', ['showing' => 'now']) }}" @class(['nav-link', 'nav-link-active' => request()->routeIs('movies.index') && request('showing') === 'now'])>Now showing</a>
-                    <a href="{{ route('movies.index', ['showing' => 'coming']) }}" @class(['nav-link', 'nav-link-active' => request()->routeIs('movies.index') && request('showing') === 'coming'])>Coming soon</a>
+                    <a href="{{ route('movies.index') }}" @class(['nav-link', 'nav-link-active' => request()->routeIs('movies.index') && ! request()->filled('showing')])>{{ __('messages.nav.all_films') }}</a>
+                    <a href="{{ route('movies.index', ['showing' => 'now']) }}" @class(['nav-link', 'nav-link-active' => request()->routeIs('movies.index') && request('showing') === 'now'])>{{ __('messages.nav.now_showing') }}</a>
+                    <a href="{{ route('movies.index', ['showing' => 'coming']) }}" @class(['nav-link', 'nav-link-active' => request()->routeIs('movies.index') && request('showing') === 'coming'])>{{ __('messages.nav.coming_soon') }}</a>
                 </nav>
+
+                <details class="relative" aria-label="Language switcher">
+                    <summary class="flex cursor-pointer items-center gap-2 rounded-full border border-line bg-surface px-2.5 py-1 text-xs text-muted transition hover:border-gold/40">
+                        <x-icon name="globe" class="h-3.5 w-3.5" />
+                        <span class="max-w-20 truncate">{{ __('messages.locale.switcher') }}</span>
+                        <x-icon name="chevron-down" class="h-3.5 w-3.5 text-muted transition group-open:rotate-180" />
+                    </summary>
+                    <div class="absolute right-0 z-50 mt-1 w-48 overflow-hidden rounded-2xl border border-line bg-surface shadow-2xl shadow-black/50">
+                        <a href="{{ route('locale.switch', ['locale' => 'en']) }}" class="flex items-center gap-2 rounded-xl px-3 py-2 text-sm text-muted transition hover:bg-surface-2 hover:text-ink @if(app()->getLocale() === 'en') bg-gold/10 text-gold @endif">
+                            <x-icon name="globe" class="h-4 w-4" />
+                            {{ __('messages.locale.english') }}
+                        </a>
+                        <a href="{{ route('locale.switch', ['locale' => 'fa']) }}" class="flex items-center gap-2 rounded-xl px-3 py-2 text-sm text-muted transition hover:bg-surface-2 hover:text-ink @if(app()->getLocale() === 'fa') bg-gold/10 text-gold @endif">
+                            <x-icon name="globe" class="h-4 w-4" />
+                            {{ __('messages.locale.persian') }}
+                        </a>
+                    </div>
+                </details>
 
                 <div class="hidden items-center gap-2 md:flex">
                     @auth
-                        <a href="{{ route('reservations.index') }}" class="nav-link">My tickets</a>
+                        <a href="{{ route('reservations.index') }}" class="nav-link">{{ __('messages.nav.my_tickets') }}</a>
 
                         @if (auth()->user()->isAdmin())
                             <a href="{{ route('admin.dashboard') }}" class="nav-link inline-flex items-center gap-1.5">
                                 <x-icon name="dashboard" class="h-4 w-4" />
-                                Admin
+                                {{ __('messages.nav.admin') }}
                             </a>
                         @endif
 
@@ -62,25 +80,25 @@
                                 <div class="p-1.5">
                                     <a href="{{ route('profile.edit') }}" class="flex items-center gap-2 rounded-xl px-3 py-2 text-sm text-muted transition hover:bg-surface-2 hover:text-ink">
                                         <x-icon name="user" class="h-4 w-4" />
-                                        Profile
+                                        {{ __('messages.nav.profile') }}
                                     </a>
                                     <a href="{{ route('reservations.index') }}" class="flex items-center gap-2 rounded-xl px-3 py-2 text-sm text-muted transition hover:bg-surface-2 hover:text-ink">
                                         <x-icon name="ticket" class="h-4 w-4" />
-                                        My reservations
+                                        {{ __('messages.nav.my_reservations') }}
                                     </a>
                                     <form method="POST" action="{{ route('logout') }}">
                                         @csrf
                                         <button type="submit" class="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-left text-sm text-muted transition hover:bg-surface-2 hover:text-ink">
                                             <x-icon name="logout" class="h-4 w-4" />
-                                            Sign out
+                                            {{ __('messages.nav.sign_out') }}
                                         </button>
                                     </form>
                                 </div>
                             </div>
                         </details>
                     @else
-                        <a href="{{ route('login') }}" class="btn btn-ghost btn-sm">Sign in</a>
-                        <a href="{{ route('register') }}" class="btn btn-primary btn-sm">Join the list</a>
+                        <a href="{{ route('login') }}" class="btn btn-ghost btn-sm">{{ __('messages.nav.sign_in') }}</a>
+                        <a href="{{ route('register') }}" class="btn btn-primary btn-sm">{{ __('messages.nav.join') }}</a>
                     @endauth
                 </div>
 
@@ -99,38 +117,56 @@
 
             <div id="mobile-menu" class="hidden border-t border-line-soft py-4 md:hidden" data-mobile-menu>
                 <nav class="flex flex-col gap-1" aria-label="Mobile navigation">
-                    <a href="{{ route('movies.index') }}" class="rounded-xl px-3 py-2.5 text-sm text-ink hover:bg-surface">All films</a>
-                    <a href="{{ route('movies.index', ['showing' => 'now']) }}" class="rounded-xl px-3 py-2.5 text-sm text-ink hover:bg-surface">Now showing</a>
-                    <a href="{{ route('movies.index', ['showing' => 'coming']) }}" class="rounded-xl px-3 py-2.5 text-sm text-ink hover:bg-surface">Coming soon</a>
+                    <a href="{{ route('movies.index') }}" class="rounded-xl px-3 py-2.5 text-sm text-ink hover:bg-surface">{{ __('messages.nav.all_films') }}</a>
+                    <a href="{{ route('movies.index', ['showing' => 'now']) }}" class="rounded-xl px-3 py-2.5 text-sm text-ink hover:bg-surface">{{ __('messages.nav.now_showing') }}</a>
+                    <a href="{{ route('movies.index', ['showing' => 'coming']) }}" class="rounded-xl px-3 py-2.5 text-sm text-ink hover:bg-surface">{{ __('messages.nav.coming_soon') }}</a>
                 </nav>
 
                 <div class="mt-4 border-t border-line-soft pt-4">
+                    <details class="relative" aria-label="Language switcher">
+                        <summary class="flex cursor-pointer items-center gap-2 rounded-full border border-line bg-surface px-2.5 py-1 text-xs text-muted transition hover:border-gold/40">
+                            <x-icon name="globe" class="h-3.5 w-3.5" />
+                            <span class="max-w-20 truncate">{{ __('messages.locale.switcher') }}</span>
+                            <x-icon name="chevron-down" class="h-3.5 w-3.5 text-muted transition group-open:rotate-180" />
+                        </summary>
+                        <div class="absolute right-0 z-50 mt-1 w-48 overflow-hidden rounded-2xl border border-line bg-surface shadow-2xl shadow-black/50">
+                            <a href="{{ route('locale.switch', ['locale' => 'en']) }}" class="flex items-center gap-2 rounded-xl px-3 py-2 text-sm text-muted transition hover:bg-surface-2 hover:text-ink @if(app()->getLocale() === 'en') bg-gold/10 text-gold @endif">
+                                <x-icon name="globe" class="h-4 w-4" />
+                                {{ __('messages.locale.english') }}
+                            </a>
+                            <a href="{{ route('locale.switch', ['locale' => 'fa']) }}" class="flex items-center gap-2 rounded-xl px-3 py-2 text-sm text-muted transition hover:bg-surface-2 hover:text-ink @if(app()->getLocale() === 'fa') bg-gold/10 text-gold @endif">
+                                <x-icon name="globe" class="h-4 w-4" />
+                                {{ __('messages.locale.persian') }}
+                            </a>
+                        </div>
+                    </details>
+
                     @auth
                         <div class="mb-3 px-3">
                             <p class="text-sm font-medium text-ink">{{ auth()->user()->name }}</p>
                             <p class="text-xs text-muted">{{ auth()->user()->email }}</p>
                         </div>
                         <a href="{{ route('reservations.index') }}" class="flex items-center gap-2 rounded-xl px-3 py-2.5 text-sm text-ink hover:bg-surface">
-                            <x-icon name="ticket" class="h-4 w-4" /> My tickets
+                            <x-icon name="ticket" class="h-4 w-4" /> {{ __('messages.nav.my_tickets') }}
                         </a>
                         <a href="{{ route('profile.edit') }}" class="flex items-center gap-2 rounded-xl px-3 py-2.5 text-sm text-ink hover:bg-surface">
-                            <x-icon name="user" class="h-4 w-4" /> Profile
+                            <x-icon name="user" class="h-4 w-4" /> {{ __('messages.nav.profile') }}
                         </a>
                         @if (auth()->user()->isAdmin())
                             <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-2 rounded-xl px-3 py-2.5 text-sm text-ink hover:bg-surface">
-                                <x-icon name="dashboard" class="h-4 w-4" /> Admin dashboard
+                                <x-icon name="dashboard" class="h-4 w-4" /> {{ __('messages.nav.admin') }}
                             </a>
                         @endif
                         <form method="POST" action="{{ route('logout') }}" class="mt-2">
                             @csrf
                             <button type="submit" class="flex w-full items-center gap-2 rounded-xl px-3 py-2.5 text-left text-sm text-muted hover:bg-surface hover:text-ink">
-                                <x-icon name="logout" class="h-4 w-4" /> Sign out
+                                <x-icon name="logout" class="h-4 w-4" /> {{ __('messages.nav.sign_out') }}
                             </button>
                         </form>
                     @else
                         <div class="flex gap-2 px-1">
-                            <a href="{{ route('login') }}" class="btn btn-secondary flex-1">Sign in</a>
-                            <a href="{{ route('register') }}" class="btn btn-primary flex-1">Join</a>
+                            <a href="{{ route('login') }}" class="btn btn-secondary flex-1">{{ __('messages.nav.sign_in') }}</a>
+                            <a href="{{ route('register') }}" class="btn btn-primary flex-1">{{ __('messages.nav.join') }}</a>
                         </div>
                     @endauth
                 </div>
@@ -153,7 +189,7 @@
                     @endif
                     @if ($errors->any())
                         <x-alert type="error">
-                            <p class="font-medium">Please review the highlighted fields.</p>
+                            <p class="font-medium">{{ __('messages.component.review_fields') }}</p>
                             <ul class="mt-1.5 list-inside list-disc space-y-0.5 text-xs text-danger/90">
                                 @foreach ($errors->all() as $error)
                                     <li>{{ $error }}</li>
@@ -186,33 +222,33 @@
                 </div>
 
                 <div>
-                    <h2 class="text-[11px] font-semibold uppercase tracking-[0.2em] text-muted">Discover</h2>
+                    <h2 class="text-[11px] font-semibold uppercase tracking-[0.2em] text-muted">{{ __('messages.footer.discover') }}</h2>
                     <ul class="mt-4 space-y-2.5 text-sm">
-                        <li><a href="{{ route('movies.index', ['showing' => 'now']) }}" class="text-muted transition hover:text-gold">Now showing</a></li>
-                        <li><a href="{{ route('movies.index', ['showing' => 'coming']) }}" class="text-muted transition hover:text-gold">Coming soon</a></li>
-                        <li><a href="{{ route('movies.index') }}" class="text-muted transition hover:text-gold">All films</a></li>
+                        <li><a href="{{ route('movies.index', ['showing' => 'now']) }}" class="text-muted transition hover:text-gold">{{ __('messages.nav.now_showing') }}</a></li>
+                        <li><a href="{{ route('movies.index', ['showing' => 'coming']) }}" class="text-muted transition hover:text-gold">{{ __('messages.nav.coming_soon') }}</a></li>
+                        <li><a href="{{ route('movies.index') }}" class="text-muted transition hover:text-gold">{{ __('messages.nav.all_films') }}</a></li>
                     </ul>
                 </div>
 
                 <div>
-                    <h2 class="text-[11px] font-semibold uppercase tracking-[0.2em] text-muted">Your visit</h2>
+                    <h2 class="text-[11px] font-semibold uppercase tracking-[0.2em] text-muted">{{ __('messages.footer.your_visit') }}</h2>
                     <ul class="mt-4 space-y-2.5 text-sm">
                         @auth
-                            <li><a href="{{ route('reservations.index') }}" class="text-muted transition hover:text-gold">My reservations</a></li>
-                            <li><a href="{{ route('profile.edit') }}" class="text-muted transition hover:text-gold">Profile</a></li>
+                            <li><a href="{{ route('reservations.index') }}" class="text-muted transition hover:text-gold">{{ __('messages.nav.my_reservations') }}</a></li>
+                            <li><a href="{{ route('profile.edit') }}" class="text-muted transition hover:text-gold">{{ __('messages.nav.profile') }}</a></li>
                         @else
-                            <li><a href="{{ route('login') }}" class="text-muted transition hover:text-gold">Sign in</a></li>
-                            <li><a href="{{ route('register') }}" class="text-muted transition hover:text-gold">Create an account</a></li>
+                            <li><a href="{{ route('login') }}" class="text-muted transition hover:text-gold">{{ __('messages.nav.sign_in') }}</a></li>
+                            <li><a href="{{ route('register') }}" class="text-muted transition hover:text-gold">{{ __('messages.nav.create_account') }}</a></li>
                         @endauth
                     </ul>
                 </div>
             </div>
 
             <div class="mt-10 flex flex-col gap-3 border-t border-line-soft pt-6 text-xs text-muted/70 sm:flex-row sm:items-center sm:justify-between">
-                <p>&copy; {{ now()->year }} {{ config('cinema.name') }}. A portfolio project.</p>
+                <p>&copy; {{ now()->year }} {{ config('cinema.name') }}. {{ __('messages.footer.portfolio') }}</p>
                 <p class="inline-flex items-center gap-2">
                     <x-icon name="shield" class="h-3.5 w-3.5" />
-                    Demo checkout — no payment is collected.
+                    {{ __('messages.footer.demo_checkout') }}
                 </p>
             </div>
         </div>
@@ -229,13 +265,13 @@
                     <x-icon name="alert" class="h-5 w-5" />
                 </span>
                 <div>
-                    <h2 id="confirm-dialog-title" class="font-display text-2xl text-ink" data-confirm-title>Please confirm</h2>
-                    <p class="mt-2 text-sm leading-6 text-muted" data-confirm-message>This action cannot be undone.</p>
+                    <h2 id="confirm-dialog-title" class="font-display text-2xl text-ink" data-confirm-title>{{ __('messages.confirm.title') }}</h2>
+                    <p class="mt-2 text-sm leading-6 text-muted" data-confirm-message>{{ __('messages.confirm.message') }}</p>
                 </div>
             </div>
             <div class="mt-6 flex justify-end gap-2">
-                <button value="cancel" class="btn btn-secondary btn-sm">Keep it</button>
-                <button value="confirm" class="btn btn-danger btn-sm" data-confirm-accept>Confirm</button>
+<button value="cancel" class="btn btn-secondary btn-sm">{{ __('messages.confirm.keep') }}</button>
+                    <button value="confirm" class="btn btn-danger btn-sm" data-confirm-accept>{{ __('messages.confirm.confirm') }}</button>
             </div>
         </form>
     </dialog>

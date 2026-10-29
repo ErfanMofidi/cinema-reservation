@@ -1,45 +1,45 @@
 @extends('layouts.admin')
 
-@section('title', 'Films')
+@section('title', __('admin.movies.title'))
 
 @section('content')
     <div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
-            <p class="eyebrow">Catalogue</p>
-            <h1 class="mt-2 font-display text-4xl text-ink sm:text-5xl">Films</h1>
-            <p class="mt-2 text-sm text-muted">Publish new releases, maintain artwork, and archive films that have finished their run.</p>
+            <p class="eyebrow">{{ __('admin.movies.eyebrow') }}</p>
+            <h1 class="mt-2 font-display text-4xl text-ink sm:text-5xl">{{ __('admin.movies.title') }}</h1>
+            <p class="mt-2 text-sm text-muted">{{ __('admin.movies.publish_maintain_archive') }}</p>
         </div>
         <a href="{{ route('admin.movies.create') }}" class="btn btn-primary btn-sm w-fit">
             <x-icon name="plus" class="h-4 w-4" />
-            New film
+            {{ __('admin.movies.new_film') }}
         </a>
     </div>
 
     <form method="GET" action="{{ route('admin.movies.index') }}" class="mt-6 flex flex-col gap-3 rounded-2xl border border-line bg-surface/60 p-4 sm:flex-row sm:items-end">
         <div class="flex-1">
-            <label for="q" class="field-label">Search</label>
+            <label for="q" class="field-label">{{ __('admin.movies.search') }}</label>
             <input id="q" name="q" type="search" value="{{ $filters['q'] }}" placeholder="Film title or slug" class="field-input">
         </div>
         <div class="sm:w-44">
-            <label for="status" class="field-label">Status</label>
+            <label for="status" class="field-label">{{ __('admin.movies.status') }}</label>
             <select id="status" name="status" class="field-input">
-                <option value="">All statuses</option>
+                <option value="">{{ __('admin.status.all') }}</option>
                 @foreach (\App\Enums\MovieStatus::cases() as $status)
                     <option value="{{ $status->value }}" @selected($filters['status'] === $status->value)>{{ $status->label() }}</option>
                 @endforeach
             </select>
         </div>
         <div class="flex gap-2">
-            <button type="submit" class="btn btn-primary btn-sm">Filter</button>
+            <button type="submit" class="btn btn-primary btn-sm">{{ __('admin.genres.filter') }}</button>
             @if ($filters['q'] !== '' || $filters['status'] !== '')
-                <a href="{{ route('admin.movies.index') }}" class="btn btn-ghost btn-sm">Clear</a>
+                <a href="{{ route('admin.movies.index') }}" class="btn btn-ghost btn-sm">{{ __('admin.genres.clear') }}</a>
             @endif
         </div>
     </form>
 
     @if ($movies->isEmpty())
-        <x-empty-state class="mt-6" title="No films found" description="Adjust the filters or add the first film to the catalogue." icon="film">
-            <a href="{{ route('admin.movies.create') }}" class="btn btn-primary btn-sm">Add film</a>
+        <x-empty-state class="mt-6" title="{{ __('admin.movies.no_films_found') }}" description="{{ __('admin.movies.adjust_filters_or_add') }}" icon="film">
+            <a href="{{ route('admin.movies.create') }}" class="btn btn-primary btn-sm">{{ __('admin.movies.add_film') }}</a>
         </x-empty-state>
     @else
         <div class="mt-6 overflow-hidden rounded-2xl border border-line bg-surface">
@@ -47,12 +47,12 @@
                 <table class="admin-table">
                     <thead>
                         <tr>
-                            <th scope="col">Film</th>
-                            <th scope="col">Status</th>
-                            <th scope="col" class="hidden lg:table-cell">Genres</th>
-                            <th scope="col" class="hidden md:table-cell">Released</th>
-                            <th scope="col">Upcoming</th>
-                            <th scope="col" class="text-right">Actions</th>
+                            <th scope="col">{{ __('admin.movies.film') }}</th>
+                            <th scope="col">{{ __('admin.movies.status') }}</th>
+                            <th scope="col" class="hidden lg:table-cell">{{ __('admin.movies.genres') }}</th>
+                            <th scope="col" class="hidden md:table-cell">{{ __('admin.movies.released') }}</th>
+                            <th scope="col">{{ __('admin.movies.upcoming') }}</th>
+                            <th scope="col" class="text-right">{{ __('admin.dashboard.actions') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -89,18 +89,18 @@
                                 </td>
                                 <td>
                                     <div class="flex items-center justify-end gap-2">
-                                        <a href="{{ route('admin.movies.edit', $movie) }}" class="btn btn-secondary btn-sm">Edit</a>
+                                        <a href="{{ route('admin.movies.edit', $movie) }}" class="btn btn-secondary btn-sm">{{ __('admin.movies.edit') }}</a>
                                         @if ($movie->status !== \App\Enums\MovieStatus::Archived && $movie->upcoming_screenings_count === 0)
                                             <form
                                                 method="POST"
                                                 action="{{ route('admin.movies.archive', $movie) }}"
                                                 data-confirm
-                                                data-confirm-title="Archive {{ $movie->title }}?"
-                                                data-confirm-message="The film will be hidden from the public programme. Historical screenings and reservations remain intact."
+                                                data-confirm-title="{{ __('admin.confirm.archive_film_title', ['title' => $movie->title]) }}"
+                                                data-confirm-message="{{ __('admin.confirm.archive_film_message') }}"
                                             >
                                                 @csrf
                                                 @method('PATCH')
-                                                <button type="submit" class="btn btn-ghost btn-sm text-danger">Archive</button>
+                                                <button type="submit" class="btn btn-ghost btn-sm text-danger">{{ __('admin.movies.archive') }}</button>
                                             </form>
                                         @endif
                                     </div>

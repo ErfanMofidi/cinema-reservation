@@ -1,7 +1,7 @@
 @extends('layouts.error')
 
-@section('title', 'Temporarily unavailable')
+@section('title', __('messages.errors.temporarily_unavailable'))
 @section('code', '503')
-@section('eyebrow', 'A short intermission')
-@section('heading', 'We are right back')
-@section('description', 'The cinema is briefly unavailable for maintenance. Please check back in a few minutes.')
+@section('eyebrow', __('messages.errors.short_intermission'))
+@section('heading', __('messages.errors.right_back'))
+@section('description', __('messages.errors.maintenance'))

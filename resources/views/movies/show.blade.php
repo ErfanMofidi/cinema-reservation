@@ -16,7 +16,7 @@
         <div class="container-cinema relative py-10 sm:py-14">
             <nav aria-label="Breadcrumb" class="text-xs text-muted">
                 <ol class="flex items-center gap-2">
-                    <li><a href="{{ route('movies.index') }}" class="transition hover:text-gold">Films</a></li>
+                    <li><a href="{{ route('movies.index') }}" class="transition hover:text-gold">{{ __('messages.nav.all_films') }}</a></li>
                     <li aria-hidden="true" class="text-line">/</li>
                     <li aria-current="page" class="max-w-[60vw] truncate text-ink/70">{{ $movie->title }}</li>
                 </ol>
@@ -33,9 +33,9 @@
                     <div class="flex flex-wrap items-center gap-2">
                         <span class="badge badge-muted">{{ $movie->age_rating }}</span>
                         @if ($movie->release_date?->isFuture())
-                            <span class="badge badge-gold">Coming soon</span>
+                            <span class="badge badge-gold">{{ __('messages.nav.coming_soon') }}</span>
                         @else
-                            <span class="badge badge-gold">Now showing</span>
+                            <span class="badge badge-gold">{{ __('messages.nav.now_showing') }}</span>
                         @endif
                     </div>
 
@@ -57,7 +57,7 @@
                         </span>
                         @if ($movie->release_date)
                             <span class="text-line" aria-hidden="true">/</span>
-                            <span>Released {{ $movie->release_date->format('M j, Y') }}</span>
+                            <span>{{ __('messages.film.released_on', ['date' => $movie->release_date->format('M j, Y')]) }}</span>
                         @endif
                         @if ($movie->genres->isNotEmpty())
                             <span class="text-line" aria-hidden="true">/</span>
@@ -69,10 +69,10 @@
                         @if ($firstDate)
                             <a href="#showtimes" class="btn btn-primary">
                                 <x-icon name="ticket" class="h-4 w-4" />
-                                Choose a showtime
+                                {{ __('messages.film.reserve_a_seat') }}
                             </a>
                         @endif
-                        <a href="{{ route('movies.index') }}" class="btn btn-secondary">Back to films</a>
+                        <a href="{{ route('movies.index') }}" class="btn btn-secondary">{{ __('messages.film.back_to_films') }}</a>
                     </div>
                 </div>
             </div>
@@ -83,8 +83,8 @@
         <div class="grid gap-8 lg:grid-cols-[1fr_20rem] lg:items-start">
             <div>
                 <section aria-labelledby="synopsis-heading">
-                    <p class="eyebrow">The story</p>
-                    <h2 id="synopsis-heading" class="mt-2 font-display text-3xl text-ink">Synopsis</h2>
+                    <p class="eyebrow">{{ __('messages.film.story') }}</p>
+                    <h2 id="synopsis-heading" class="mt-2 font-display text-3xl text-ink">{{ __('messages.film.synopsis') }}</h2>
                     <div class="prose-cinema mt-4">
                         @foreach (preg_split('/\n+/', trim($movie->synopsis)) as $paragraph)
                             <p>{{ $paragraph }}</p>
@@ -95,22 +95,22 @@
                 <section id="showtimes" class="mt-12 scroll-mt-24" aria-labelledby="showtimes-heading">
                     <div class="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
                         <div>
-                            <p class="eyebrow">Reserve a seat</p>
-                            <h2 id="showtimes-heading" class="mt-2 font-display text-3xl text-ink">Showtimes</h2>
+                            <p class="eyebrow">{{ __('messages.film.reserve_a_seat') }}</p>
+                            <h2 id="showtimes-heading" class="mt-2 font-display text-3xl text-ink">{{ __('messages.film.showtimes') }}</h2>
                         </div>
                         @if ($screeningsByDate->isNotEmpty())
-                            <p class="text-xs text-muted">All times are local · Booking closes 15 minutes before showtime</p>
+                            <p class="text-xs text-muted">{{ __('messages.film.all_times_local') }}</p>
                         @endif
                     </div>
 
                     @if ($screeningsByDate->isEmpty())
                         <x-empty-state
                             class="mt-6"
-                            title="Tickets are not on sale yet"
-                            description="{{ $movie->release_date?->isFuture() ? 'This film opens on '.$movie->release_date->format('F j, Y').'. Check back closer to the release date.' : 'There are no upcoming screenings for this film right now. Browse the programme for something else.' }}"
+                            title="{{ __('messages.film.tickets_not_on_sale') }}"
+                            description="{{ $movie->release_date?->isFuture() ? __('messages.film.opens_on', ['date' => $movie->release_date->format('F j, Y')]) : __('messages.film.no_upcoming_screenings') }}"
                             icon="calendar"
                         >
-                            <a href="{{ route('movies.index', ['showing' => 'now']) }}" class="btn btn-secondary btn-sm">See what's showing</a>
+                            <a href="{{ route('movies.index', ['showing' => 'now']) }}" class="btn btn-secondary btn-sm">{{ __('messages.film.see_whats_showing') }}</a>
                         </x-empty-state>
                     @else
                         <nav class="no-scrollbar mt-5 flex gap-2 overflow-x-auto pb-1" aria-label="Jump to a showtime date">
@@ -121,7 +121,7 @@
                                     class="flex shrink-0 flex-col rounded-xl border border-line bg-surface px-4 py-2.5 text-center transition hover:border-gold/50"
                                 >
                                     <span class="text-[10px] font-semibold uppercase tracking-[0.14em] text-muted">
-                                        {{ $day->isToday() ? 'Today' : ($day->isTomorrow() ? 'Tomorrow' : $day->format('D')) }}
+                                        {{ $day->isToday() ? __('messages.film.today') : ($day->isTomorrow() ? __('messages.film.tomorrow') : $day->format('D')) }}
                                     </span>
                                     <span class="mt-0.5 text-sm font-medium text-ink">{{ $day->format('M j') }}</span>
                                 </a>
@@ -134,7 +134,7 @@
                                 <section id="date-{{ $date }}" class="scroll-mt-24" aria-labelledby="date-heading-{{ $date }}">
                                     <div class="flex items-baseline justify-between gap-4">
                                         <h3 id="date-heading-{{ $date }}" class="font-display text-2xl text-ink">
-                                            {{ $day->isToday() ? 'Today' : ($day->isTomorrow() ? 'Tomorrow' : $day->format('l')) }}
+                                            {{ $day->isToday() ? __('messages.film.today') : ($day->isTomorrow() ? __('messages.film.tomorrow') : $day->format('l')) }}
                                             <span class="ml-2 font-sans text-xs font-normal text-muted">{{ $day->format('F j') }}</span>
                                         </h3>
                                         <span class="text-[10px] uppercase tracking-[0.16em] text-muted">{{ $dayScreenings->count() }} {{ \Illuminate\Support\Str::plural('screening', $dayScreenings->count()) }}</span>
@@ -162,11 +162,11 @@
 
                                                 <div class="text-xs sm:text-right">
                                                     @if ($remaining === 0)
-                                                        <span class="badge badge-danger">Sold out</span>
+                                                        <span class="badge badge-danger">{{ __('messages.film.sold_out') }}</span>
                                                     @elseif (! $bookingOpen)
-                                                        <span class="badge badge-muted">Booking closed</span>
+                                                        <span class="badge badge-muted">{{ __('messages.film.booking_closed') }}</span>
                                                     @else
-                                                        <span class="text-muted"><span class="font-medium text-ink">{{ $remaining }}</span> seats left</span>
+                                                        <span class="text-muted"><span class="font-medium text-ink">{{ $remaining }}</span> {{ __('messages.film.seats_left') }}</span>
                                                     @endif
                                                 </div>
 
@@ -187,29 +187,29 @@
             </div>
 
             <aside class="card p-6 lg:sticky lg:top-24" aria-labelledby="details-heading">
-                <h2 id="details-heading" class="font-display text-2xl text-ink">Details</h2>
+                <h2 id="details-heading" class="font-display text-2xl text-ink">{{ __('messages.film.details') }}</h2>
                 <dl class="mt-4 divide-y divide-line-soft text-sm">
                     <div class="flex items-center justify-between gap-4 py-3">
-                        <dt class="text-muted">Runtime</dt>
+                        <dt class="text-muted">{{ __('messages.film.runtime') }}</dt>
                         <dd class="text-ink">{{ \App\Support\CinemaFormat::duration($movie->runtime_minutes) }}</dd>
                     </div>
                     <div class="flex items-center justify-between gap-4 py-3">
-                        <dt class="text-muted">Language</dt>
+                        <dt class="text-muted">{{ __('messages.film.language') }}</dt>
                         <dd class="text-ink">{{ $movie->language }}</dd>
                     </div>
                     <div class="flex items-center justify-between gap-4 py-3">
-                        <dt class="text-muted">Age rating</dt>
+                        <dt class="text-muted">{{ __('messages.film.age_rating') }}</dt>
                         <dd class="text-ink">{{ $movie->age_rating }}</dd>
                     </div>
                     @if ($movie->release_date)
                         <div class="flex items-center justify-between gap-4 py-3">
-                            <dt class="text-muted">Release date</dt>
+                            <dt class="text-muted">{{ __('messages.film.release_date') }}</dt>
                             <dd class="text-ink">{{ $movie->release_date->format('M j, Y') }}</dd>
                         </div>
                     @endif
                     @if ($movie->genres->isNotEmpty())
                         <div class="flex items-start justify-between gap-4 py-3">
-                            <dt class="text-muted">Genres</dt>
+                            <dt class="text-muted">{{ __('messages.film.genres') }}</dt>
                             <dd class="flex flex-wrap justify-end gap-1.5">
                                 @foreach ($movie->genres as $genre)
                                     <a href="{{ route('movies.index', ['genre' => $genre->slug]) }}" class="badge badge-muted transition hover:border-gold/40 hover:text-gold">{{ $genre->name }}</a>
@@ -222,11 +222,9 @@
                 <div class="mt-5 rounded-xl border border-gold/20 bg-gold/5 p-4">
                     <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.14em] text-gold">
                         <x-icon name="shield" class="h-3.5 w-3.5" />
-                        Demo checkout
+                        {{ __('messages.film.demo_checkout') }}
                     </div>
-                    <p class="mt-2 text-xs leading-5 text-muted">
-                        No card details are collected and no payment is charged. Your reservation is confirmed immediately for this portfolio demo.
-                    </p>
+                    <p class="mt-2 text-xs leading-5 text-muted">{{ __('messages.film.no_card_details') }}</p>
                 </div>
             </aside>
         </div>

@@ -37,26 +37,26 @@
                 <span>{{ $reservation->seatCount() }} {{ \Illuminate\Support\Str::plural('ticket', $reservation->seatCount()) }}</span>
             </div>
 
-            <p class="mt-1.5 truncate text-xs text-muted/80">Seats {{ $reservation->seatLabelList() }}</p>
+            <p class="mt-1.5 truncate text-xs text-muted/80">{{ __('messages.reservations.seats') }} {{ $reservation->seatLabelList() }}</p>
         </div>
 
         <div class="flex flex-row items-center justify-between gap-3 border-t border-line-soft pt-4 sm:flex-col sm:items-end sm:border-0 sm:pt-0">
             <div class="text-sm sm:text-right">
-                <p class="text-[10px] uppercase tracking-[0.14em] text-muted">Total</p>
+                <p class="text-[10px] uppercase tracking-[0.14em] text-muted">{{ __('messages.reservations.total') }}</p>
                 <p class="mt-0.5 font-medium text-ink">{{ \App\Support\CinemaFormat::money($reservation->total) }}</p>
             </div>
             <div class="flex items-center gap-2">
-                <a href="{{ route('reservations.show', $reservation) }}" class="btn btn-secondary btn-sm">View</a>
+                <a href="{{ route('reservations.show', $reservation) }}" class="btn btn-secondary btn-sm">{{ __('messages.reservations.view') }}</a>
                 @can('cancel', $reservation)
                     <form
                         method="POST"
                         action="{{ route('reservations.cancel', $reservation) }}"
                         data-confirm
-                        data-confirm-title="Cancel this reservation?"
-                        data-confirm-message="Seats {{ $reservation->seatLabelList() }} will be released immediately. This cannot be undone."
+                        data-confirm-title="{{ __('messages.reservations.cancel_this_reservation') }}"
+                        data-confirm-message="{{ __('messages.reservations.seats_released', ['seats' => $reservation->seatLabelList()]) }}"
                     >
                         @csrf
-                        <button type="submit" class="btn btn-danger btn-sm">Cancel</button>
+                        <button type="submit" class="btn btn-danger btn-sm">{{ __('messages.reservations.cancel') }}</button>
                     </form>
                 @endcan
             </div>

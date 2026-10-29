@@ -21,7 +21,7 @@
     <x-icon :name="$icon" class="mt-0.5 h-4 w-4 shrink-0" />
     <div class="min-w-0 flex-1">{{ $slot }}</div>
     @if ($dismissible)
-        <button type="button" class="shrink-0 rounded p-1 opacity-70 hover:opacity-100" data-dismiss-alert aria-label="Dismiss message">
+        <button type="button" class="shrink-0 rounded p-1 opacity-70 hover:opacity-100" data-dismiss-alert aria-label="{{ __('messages.component.dismiss_message') }}">
             <x-icon name="close" class="h-4 w-4" />
         </button>
     @endif
